@@ -64,70 +64,36 @@ client.on('message', message => {
 			message.channel.send('You didn\'t ask a question...');
 		}//if no question
 		else {//else
+			var responses = ['Yes','For sure, my dude','Meh, probably', 'Hard no', 'Nope', 'Math.random says no', 'Fuck if I know', 'Maybe? IDK lol']
 			var j = Math.floor(Math.random() * 8);
-			switch (j) {//switch
-				case 0:
-					message.channel.send('Yes');
-					break;
-				case 1:
-					message.channel.send('For sure, my dude');
-					break;
-				case 2:
-					message.channel.send('Meh, probably');
-					break;
-				case 3:
-					message.channel.send('Hard no');
-					break;
-				case 4:
-					message.channel.send('Nope');
-					break;
-				case 5:
-					message.channel.send('Math.random says no');
-					break;
-				case 6:
-					message.channel.send('Fuck if I know');
-					break;
-				case 7:
-					message.channel.send('Maybe? IDK lol');
-					break;
-			}//switch
+			message.channel.send(responses[j])
 		}//else
-	}//8ball	
+	}//8ball
 	else if (commandIs("info", message)) {//info
 		if (args.length === 1) {//if no command
 			message.channel.send('You didn\'t specify a command...');
 		}//if no command
 		else if (args.length === 2) {
-			if (args[1] === 'hello') {
-				message.channel.send(args[1] + ': returns a friendly greeting');
-			} else if (args[1] === 'help') {
-				message.channel.send(args[1] + ': provides a list of commands');
-			} else if (args[1] === 'info') {
-				message.channel.send(args[1] + ': provides information about a specific command');
-			} else if (args[1] === '8ball') {
-				message.channel.send(args[1] + ': answers a yes or no question');
-			} else if (args[1] === 'counter++') {
-				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)');
-			} else if (args[1] === 'counter--') {
-				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)');
-			}else if (args[1] === 'cry') {
-				message.channel.send(args[1] + ': links a random GIF of a crying anime person');
-			} else if (args[1] === 'smug') {
-				message.channel.send(args[1] + ': creates a "smug aura" meme using your profile picture');
-			} else if (args[1] === 'wolverine') {
-				message.channel.send(args[1] + ': creates a Wolverine meme using your profile picture');
-			} else if (args[1] === 'custom') {
-				message.channel.send(args[1] + ': executes custom commands using the format: !custom [commandName]');
-			} else if (args[1] === 'createcustom') {
-				message.channel.send(args[1] + ': creates a custom command using the format: !createcustom [commandName] [URL] ('+privRole+' only)');
-			} else if (args[1] === 'deletecustom') {
-				message.channel.send(args[1] + ': deletes custom command using the format: !deletecustom [commandName] ('+privRole+' only)');
-			} else if (args[1] === 'createcounter') {
-				message.channel.send(args[1] + ': creates a new counter using the format: !createcounter [counterName] [startingValue] ('+privRole+' only)');
-			} else if (args[1] === 'deletecounter') {
-				message.channel.send(args[1] + ': deletes counter using the format: !deletecounter [counterName] ('+privRole+' only)');
-			} else if (args[1] === 'checkcounter') {
-				message.channel.send(args[1] + ': returns the specified counters current value using the format: !checkcounter[counterName]');
+			var documentation = {
+				'hello' : 'returns a friendly greeting',
+				'helo' : 'provides a list of commands',
+				'info' : 'provides information about a specific command',
+				'8ball' : 'answers a yes or no question',
+				'counter++' : 'increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)',
+				'counter--' : 'increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)',
+				'cry' : 'links a random GIF of a crying anime person',
+				'smug': 'creates a "smug aura" meme using your profile picture',
+				'wolverine' : 'creates a Wolverine meme using your profile picture',
+				'custom' : 'executes custom commands using the format: !custom [commandName]',
+				'createcustom' : 'creates a custom command using the format: !createcustom [commandName] [URL] ('+privRole+' only)',
+				'deletecustom' : 'deletes custom command using the format: !deletecustom [commandName] ('+privRole+' only)',
+				'createcounter' : 'creates a new counter using the format: !createcounter [counterName] [startingValue] ('+privRole+' only)',
+				'deletecounter' : 'deletes counter using the format: !deletecounter [counterName] ('+privRole+' only)',
+				'checkcounter' : 'returns the specified counters current value using the format: !checkcounter[counterName]'
+			}
+
+			if(Object.keys(documentation).indexOf(args[1]) > -1) {
+				message.channel.send([args[1], documentation[args[1]]].join(' : '))
 			} else {
 				message.channel.send('I don\'t recognize that command...');
 			}
@@ -137,25 +103,27 @@ client.on('message', message => {
 		}//else
 	}//info
 	else if (commandIs("cry", message)) {//cry
+
 		var i = Math.floor(Math.random() * 16);
-		switch (i) {
-			case 0: message.channel.send('https://i.imgur.com/oPIEjtA.gif'); break;
-			case 1: message.channel.send('https://i.imgur.com/TmjFAIn.gif'); break;
-			case 2: message.channel.send('https://i.imgur.com/22eOqjO.gif'); break;
-			case 3: message.channel.send('https://i.imgur.com/fKGapsX.gif'); break;
-			case 4: message.channel.send('https://i.imgur.com/lFje0mw.gif'); break;
-			case 5: message.channel.send('https://i.imgur.com/dNagorM.gif'); break;
-			case 6: message.channel.send('https://i.imgur.com/ce7Okth.gif'); break;
-			case 7: message.channel.send('https://i.imgur.com/8YbmJAq.gif'); break;
-			case 8: message.channel.send('https://i.imgur.com/onmlVGH.gif'); break;
-			case 9: message.channel.send('https://i.imgur.com/Njk8OC0.gif'); break;
-			case 10: message.channel.send('https://i.imgur.com/THVvEO8.gif'); break;
-			case 11: message.channel.send('https://i.imgur.com/anYD1Vm.gif'); break;
-			case 12: message.channel.send('https://i.imgur.com/kh78L86.gif'); break;
-			case 13: message.channel.send('https://i.imgur.com/cAEI1B9.gif'); break;
-			case 14: message.channel.send('https://i.imgur.com/zGyiwQj.gif'); break;
-			case 15: message.channel.send('https://i.imgur.com/HwasTsq.gif'); break;
-		}
+		var gifs = [
+			'https://i.imgur.com/oPIEjtA.gif',
+			'https://i.imgur.com/TmjFAIn.gif',
+			'https://i.imgur.com/22eOqjO.gif',
+			'https://i.imgur.com/fKGapsX.gif',
+			'https://i.imgur.com/lFje0mw.gif',
+			'https://i.imgur.com/dNagorM.gif',
+			'https://i.imgur.com/ce7Okth.gif',
+			'https://i.imgur.com/8YbmJAq.gif',
+			'https://i.imgur.com/onmlVGH.gif',
+			'https://i.imgur.com/Njk8OC0.gif',
+			'https://i.imgur.com/THVvEO8.gif',
+			'https://i.imgur.com/anYD1Vm.gif',
+			'https://i.imgur.com/kh78L86.gif',
+			'https://i.imgur.com/cAEI1B9.gif',
+			'https://i.imgur.com/zGyiwQj.gif',
+			'https://i.imgur.com/HwasTsq.gif'
+		]
+		message.channel.send(gifs[i])
 	}//cry
 	else if (commandIs("smug", message)) {//smug
 		Jimp.read("images/smug.png", function (err, background) {
@@ -372,4 +340,3 @@ client.on('message', message => {
 
 //insert your token here
 client.login('your_token_here');
-
