@@ -7,6 +7,7 @@ var file = "vanbotDB";
 var db = new sqlite3.Database(file);
 
 var trigger = "v!";//trigger that the bot looks for at the start of each message to see if the message is a command
+var privRole = "Bot Permissions";//role that the bot checks for commands you don't want all users to have access to
 
 function commandIs(str, msg) {
 	return msg.content.toLowerCase().startsWith(trigger + str);
@@ -36,7 +37,7 @@ client.on('message', message => {
 	}//hello
 	else if (commandIs("help", message)) {//help
 		message.channel.send('Public Commands: ' + trigger + 'hello, ' + trigger + 'help, ' + trigger + 'info [command], ' + trigger + '8ball [question], ' + trigger + 'smug, ' + trigger + 'wolverine, ' + trigger + 'custom [custom command], ' + trigger + 'checkcounter [counterName]');
-		message.channel.send('Bot Permissions Commands: ' + trigger + 'createcustom [customCommand] [URL], ' + trigger + 'deletecustom [customCommand], ' + trigger + 'createcounter [counterName] [startingValue], ' + trigger + 'deletecounter [counterName], ' + trigger + 'counter++ [counterName], ' + trigger + 'counter-- [counterName]');
+		message.channel.send(privRole+' Commands: ' + trigger + 'createcustom [customCommand] [URL], ' + trigger + 'deletecustom [customCommand], ' + trigger + 'createcounter [counterName] [startingValue], ' + trigger + 'deletecounter [counterName], ' + trigger + 'counter++ [counterName], ' + trigger + 'counter-- [counterName]');
 
 		var customList = 'Custom Commands: ';
 
@@ -106,12 +107,10 @@ client.on('message', message => {
 			} else if (args[1] === '8ball') {
 				message.channel.send(args[1] + ': answers a yes or no question');
 			} else if (args[1] === 'counter++') {
-				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] (bot Permissions role only)');
+				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)');
 			} else if (args[1] === 'counter--') {
-				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] (bot Permissions role only)');
-			} else if (args[1] === 'cpcount') {
-				message.channel.send(args[1] + ': relays how many times CP has been mentioned in Yankson\'s class');
-			} else if (args[1] === 'cry') {
+				message.channel.send(args[1] + ': increments the specified counter using the format !counter++ [counterName] ('+privRole+' role only)');
+			}else if (args[1] === 'cry') {
 				message.channel.send(args[1] + ': links a random GIF of a crying anime person');
 			} else if (args[1] === 'smug') {
 				message.channel.send(args[1] + ': creates a "smug aura" meme using your profile picture');
@@ -120,13 +119,13 @@ client.on('message', message => {
 			} else if (args[1] === 'custom') {
 				message.channel.send(args[1] + ': executes custom commands using the format: !custom [commandName]');
 			} else if (args[1] === 'createcustom') {
-				message.channel.send(args[1] + ': creates a custom command using the format: !createcustom [commandName] [URL] (bot permissions only)');
+				message.channel.send(args[1] + ': creates a custom command using the format: !createcustom [commandName] [URL] ('+privRole+' only)');
 			} else if (args[1] === 'deletecustom') {
-				message.channel.send(args[1] + ': deletes custom command using the format: !deletecustom [commandName] (bot permissions only)');
+				message.channel.send(args[1] + ': deletes custom command using the format: !deletecustom [commandName] ('+privRole+' only)');
 			} else if (args[1] === 'createcounter') {
-				message.channel.send(args[1] + ': creates a new counter using the format: !createcounter [counterName] [startingValue] (bot permissions only)');
+				message.channel.send(args[1] + ': creates a new counter using the format: !createcounter [counterName] [startingValue] ('+privRole+' only)');
 			} else if (args[1] === 'deletecounter') {
-				message.channel.send(args[1] + ': deletes counter using the format: !deletecounter [counterName] (bot permissions only)');
+				message.channel.send(args[1] + ': deletes counter using the format: !deletecounter [counterName] ('+privRole+' only)');
 			} else if (args[1] === 'checkcounter') {
 				message.channel.send(args[1] + ': returns the specified counters current value using the format: !checkcounter[counterName]');
 			} else {
@@ -245,7 +244,7 @@ client.on('message', message => {
 	if (message.content.toLocaleLowerCase().includes("cyber")) {//cyber alert
 		message.channel.send(':rotating_light: C Y B E R :rotating_light:');
 	}//cyber alert
-	if (hasRole(message.member, "Bot Permissions")) {//the bot will check for this role before executing the following commands
+	if (hasRole(message.member, privRole)) {//the bot will check for this role before executing the following commands
 		if (commandIs("counter++", message)) {//counter++
 			if (args.length === 2) {
 				var found = 0;
